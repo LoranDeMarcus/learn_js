@@ -2,23 +2,20 @@ var usersData = [];
 var userObj = {name: '', email: '', id: i = 0};
 
 function AddUser(name, email, id) {
-    usersData.push({
+    usersData.push(i++,{
         name: name,
-        email: email,
-        id: i++
+        email: email
     });
 }
 
-function UpdateUser() {
-    for (i in usersData) {
-        usersData.splice(i, 1);
+function UpdateUser(i) {
+    for (var j = 0; i < usersData; j++) {
+        console.log(usersData[usersData[i]])
     }
 }
 
 function DeleteUser(i) {
-    for (i in usersData) {
-        usersData.splice(i, 1);
-    }
+    delete usersData[i];
 }
 
 function ShowUsers() {
