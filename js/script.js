@@ -19,7 +19,6 @@ function UpdateUser(id, name , email) {
 function DeleteUser(id) {
     usersData.splice(id, 1)
 }
-
 function ShowUsers() {
     console.log(usersData);
 }
