@@ -11,13 +11,14 @@ function AddUser(GetNewUserId, name, email) {
     });
 }
 
-function GetNewUserId() {
-    if (usersData.id === '') {
-        usersData.id = 1
+function GetNewUserId(id, userObj) {
+    if (usersData.id === 0) {
+        usersData.id = 1;
     } else {
-
+        var maxId = usersData.reduce((max, item) => item.id > max ? item.id : max, 0);
+        userObj['id'] = maxId + 1;
+        usersData.push(usersData.id);
     }
-    var maxId = usersData.reduce((max, item) => item.id > max ? item.id : max, 0);
     /* TODO:
      функция для поиска максимального id среди всех пользователей.
      Возвращает максимальный (id пользователя + 1) из массиве userData, тип Int
@@ -27,21 +28,22 @@ function GetNewUserId() {
 
 // данная функция ничего не делает полезного
 function UpdateUser(id, name , email) {
-    usersData.forEach(function (item, i, usersData) {
+    for (var index = 0; index < usersData.length; index++) {
+        if (usersData[index].id === id) {
+            usersData[index].email = email;
+            usersData[index].name = name;
+            break;
+        }
         /*
          todo сделать условие поиска по id (https://www.mobila.name/post/52f2236296ceb/).
          найти в массиве пользователя с указанным id и уже только потом поменять данные
          ! Вернуть true если пользователь найден и обновлен, иначе false
          */
-
-        // это ок
-        usersData[id].email = email;
-        usersData[id].name = name;
-    })
 }
 
 // функция не работает
 function DeleteUser(id) {
+
     /*
      todo сделать условие поиска id (https://www.mobila.name/post/52f2236296ceb/).
      в данном случае выполняется удаление из ячейки по ее номеру.
@@ -52,11 +54,14 @@ function DeleteUser(id) {
 }
 
 function ShowUsers() {
+    usersData.forEach(function (item) {
+        console.log(item)
+    })
     // todo: сделать вывод в консоле в цикле. что бы отобразилось например:
     /*
      User in list:
      1|Vanya|vanya@mail.ru
      2|Tema|tema@mail.ru
      */
-    console.log(usersData);
+
 }
