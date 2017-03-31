@@ -34,23 +34,15 @@ function UpdateUser(id, name , email) {
             usersData[index].name = name;
             break;
         }
-        /*
-         todo сделать условие поиска по id (https://www.mobila.name/post/52f2236296ceb/).
-         найти в массиве пользователя с указанным id и уже только потом поменять данные
-         ! Вернуть true если пользователь найден и обновлен, иначе false
-         */
+    }
 }
 
-// функция не работает
 function DeleteUser(id) {
-
-    /*
-     todo сделать условие поиска id (https://www.mobila.name/post/52f2236296ceb/).
-     в данном случае выполняется удаление из ячейки по ее номеру.
-     Сделать по аналогу с update. - найти нужного пользователя и вызвать splice уже только потом
-     ! Вернуть true если пользователь найден и удален, иначе false
-     */
-    usersData.splice(id, 1)
+    for (var index = 0; index < usersData.length; index++) {
+        if (usersData[index].id === id) {
+            usersData.splice(id, 1)
+        }
+    }
 }
 
 function ShowUsers() {
