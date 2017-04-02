@@ -1,10 +1,10 @@
 var usersData = [];
 //language=JSRegexp
-const nameCheck = (/[a-zA-Z]+/g);
-const emailCheck = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-const digitCheck = (/\d+/g);
+const nameCheck = /[a-zA-Z]+/g;
+const emailCheck = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
 function AddUser(name, email) {
-    if (name === undefined || email === undefined /*|| name !== nameCheck || email !== emailCheck*/) {
+    if (name === undefined || email === undefined || !(name.match(nameCheck)) || !(email.match(emailCheck))) {
         return false
     } else {
         usersData.push({
@@ -25,7 +25,7 @@ function GetNewUserId () {
 }
 
 function UpdateUser(id, name, email) {
-    if (id === undefined || name === undefined || email === undefined /*|| name !== nameCheck || email !== emailCheck*/) {
+    if (id > usersData.length || id < usersData[0] || id === undefined || id === "" || name === undefined || email === undefined || !(name.match(nameCheck)) || !(email.match(emailCheck))) {
         return false
     }
     else {
@@ -40,13 +40,13 @@ function UpdateUser(id, name, email) {
 }
 
 function DeleteUser(id) {
-    if (id < usersData.length || id > usersData.length /*|| id !== digitCheck*/) {
+    if (id > usersData.length || id < usersData[0] || id === undefined) {
         return false
     }
     else {
         for (var index = 0; index < usersData.length; index++) {
             if (usersData[index].id === id) {
-                usersData.splice(id, 1);
+                usersData.splice(index, 1);
             }
         }
     }

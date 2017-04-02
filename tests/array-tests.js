@@ -35,4 +35,48 @@ describe("TestingUpdateUser", function () {
         });
 
     });
+
+    it("WithIDArgumentsIsNotInTheRangeReturnFalse", function () {
+
+        it("WithIDArgumentsIsHigherThanRangeReturnFalse", function (id) {
+            assert.equal(DeleteUser(id > usersData.length),false)
+        })
+
+        it("WithIDArgumentsIsLowerThanRangeReturnFalse", function (id) {
+            assert.equal(DeleteUser(id < usersData[0]),false)
+        });
+
+    });
 });
+
+describe("TestingDeleteUser", function () {
+
+    it("CallWithoutArgumentsMustReturnFalse", function () {
+        assert.equal(DeleteUser(), false);
+    });
+
+    it("CallWithWrongArgumentsReturnFalse", function () {
+
+        it("WithEmptyArgumentsReturnFalse", function () {
+            assert.equal(DeleteUser(''), false);
+        });
+
+        it("WithUndefinedArgumentsReturnFalse", function () {
+            assert.equal(DeleteUser(undefined), false)
+        });
+
+    });
+
+    it("WithIDArgumentsIsNotInTheRangeReturnFalse", function () {
+
+        it("WithIDArgumentsIsHigherThanRangeReturnFalse", function (id) {
+            assert.equal(DeleteUser(id > usersData.length),false)
+        })
+
+        it("WithIDArgumentsIsLowerThanRangeReturnFalse", function (id) {
+            assert.equal(DeleteUser(id < usersData.length),false)
+        });
+
+    });
+
+})
