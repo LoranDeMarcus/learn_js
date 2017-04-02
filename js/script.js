@@ -1,14 +1,22 @@
 var usersData = [];
-
-function AddUser(name, email) {
-    usersData.push({
-        id: GetNewUserId(),
-        name: name,
-        email: email
-    });
+//language=JSRegexp
+const nameCheck = /[a-zA-Z]+/g;
+const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const digitCheck = /\d/g;
+function AddUser (name, email) {
+    if (name === undefined || email === undefined || name !== nameCheck || email !== emailCheck) {
+        return false
+    }
+    else {
+        usersData.push({
+            id: GetNewUserId(),
+            name: name,
+            email: email
+        });
+    }
 }
 
-function GetNewUserId(id) {
+function GetNewUserId () {
     if (usersData.id === 0) {
         usersData.id = 1;
     } else {
@@ -17,25 +25,35 @@ function GetNewUserId(id) {
     return maxId + 1;
 }
 
-function UpdateUser(id, name , email) {
-    for (var index = 0; index < usersData.length; index++) {
-        if (usersData[index].id === id) {
-            usersData[index].email = email;
-            usersData[index].name = name;
-            break;
+function UpdateUser (id, name, email) {
+    if (name === undefined || email === undefined || name !== nameCheck || email !== emailCheck) {
+        return false
+    }
+    else {
+        for (var index = 0; index < usersData.length; index++) {
+            if (usersData[index].id === id) {
+                usersData[index].email = email;
+                usersData[index].name = name;
+                break;
+            }
         }
     }
 }
 
-function DeleteUser(id) {
-    for (var index = 0; index < usersData.length; index++) {
-        if (usersData[index].id === id) {
-            usersData.splice(id, 1)
+function DeleteUser (id) {
+    if (id > usersData.length || id < usersData.length || id !== digitCheck) {
+        return false
+    }
+    else {
+        for (var index = 0; index < usersData.length; index++) {
+            if (usersData[index].id === id) {
+                usersData.splice(id, 1)
+            }
         }
     }
 }
 
-function ShowUsers() {
+function ShowUsers () {
     usersData.forEach(function (item) {
         console.log(item)
     })
