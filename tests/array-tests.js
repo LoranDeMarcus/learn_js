@@ -1,7 +1,14 @@
 describe("TestingAddUser", function() {
 
+    it("CallWithRightArgumentsMustReturnTrue", function () {
+        const nameRegExp = /[a-zA-Z]+/g;
+        const emailRegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        const name1 = name.match(nameRegExp);
+        const email1 = email.match(emailRegExp);
+        assert.equal(AddUser(name1, email1), true)
+    });
+
     it("CallWithoutArgumentsMustReturnFalse", function() {
-        AddUser();
         assert.equal(AddUser(), false);
     });
 

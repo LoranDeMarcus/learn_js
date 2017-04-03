@@ -1,17 +1,25 @@
 var usersData = [];
-//language=JSRegexp
-const nameCheck = /[a-zA-Z]+/g;
-const emailCheck = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-function AddUser(name, email) {
-    if (name === undefined || email === undefined || !(name.match(nameCheck)) || !(email.match(emailCheck))) {
+function ValidateUser (newId, name, email) {
+    //language=JSRegexp
+    const nameRegExp = /[a-zA-Z]+/g;
+    const emailRegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/g;
+    const idCheck = (newId > usersData.length && newId < usersData[0] || newId === undefined || newId === "");
+    const dataCheck = (name === undefined || !(name.match(nameRegExp)) || email === undefined || !(email.match(emailRegExp)));
+    return idCheck && dataCheck;
+}
+
+function AddUser (name, email) {
+    const newId = GetNewUserId();
+    if (ValidateUser(newId, name, email)) {
         return false
     } else {
         usersData.push({
-            id: GetNewUserId(),
+            id: newId,
             name: name,
             email: email
-        });
+        });return true;
+        return newId;
     }
 }
 
@@ -24,13 +32,12 @@ function GetNewUserId () {
     return maxId + 1;
 }
 
-function UpdateUser(id, name, email) {
-    if (id > usersData.length || id < usersData[0] || id === undefined || id === "" || name === undefined || email === undefined || !(name.match(nameCheck)) || !(email.match(emailCheck))) {
-        return false
-    }
-    else {
+function UpdateUser (newId, name, email) {
+    if (ValidateUser(newId) && ValidateUser(name, email)) {
+        return false;
+    } else {
         for (var index = 0; index < usersData.length; index++) {
-            if (usersData[index].id === id) {
+            if (usersData[index].id === newId) {
                 usersData[index].email = email;
                 usersData[index].name = name;
                 break;
@@ -39,13 +46,12 @@ function UpdateUser(id, name, email) {
     }
 }
 
-function DeleteUser(id) {
-    if (id > usersData.length || id < usersData[0] || id === undefined) {
-        return false
-    }
-    else {
+function DeleteUser (newId) {
+    if (ValidateUser(newId)) {
+        return false;
+    } else {
         for (var index = 0; index < usersData.length; index++) {
-            if (usersData[index].id === id) {
+            if (usersData[index].id === newId) {
                 usersData.splice(index, 1);
             }
         }
