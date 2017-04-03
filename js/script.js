@@ -1,24 +1,24 @@
 var usersData = [];
 
-function ValidateUser (newId, name, email) {
+function ValidateUser (id, name, email) {
     //language=JSRegexp
     const nameRegExp = /[a-zA-Z]+/g;
     const emailRegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/g;
-    const idCheck = (newId > usersData.length && newId < usersData[0] || newId === undefined || newId === "");
-    const dataCheck = (name === undefined || !(name.match(nameRegExp)) || email === undefined || !(email.match(emailRegExp)));
+    const idCheck = (id > usersData.length && id < usersData[0] || id === undefined || id === "");
+    const dataCheck = (name === undefined || email === undefined || !(name.match(nameRegExp)) || !(email.match(emailRegExp)));
     return idCheck && dataCheck;
 }
 
 function AddUser (name, email) {
     const newId = GetNewUserId();
-    if (ValidateUser(newId, name, email)) {
+    if (ValidateUser(name, email)) {
         return false
     } else {
         usersData.push({
             id: newId,
             name: name,
             email: email
-        });return true;
+        });
         return newId;
     }
 }
@@ -32,27 +32,30 @@ function GetNewUserId () {
     return maxId + 1;
 }
 
-function UpdateUser (newId, name, email) {
-    if (ValidateUser(newId) && ValidateUser(name, email)) {
-        return false;
+function UpdateUser (id, name, email) {
+    if (ValidateUser(id) && ValidateUser(name, email)) {
+        return false && 'validation error';
     } else {
         for (var index = 0; index < usersData.length; index++) {
-            if (usersData[index].id === newId) {
+            if (usersData[index].id === id) {
                 usersData[index].email = email;
                 usersData[index].name = name;
-                break;
+            } else {
+                return false
             }
         }
     }
 }
 
-function DeleteUser (newId) {
-    if (ValidateUser(newId)) {
-        return false;
+function DeleteUser (id) {
+    if (ValidateUser(id)) {
+        return false && 'validation error';
     } else {
         for (var index = 0; index < usersData.length; index++) {
-            if (usersData[index].id === newId) {
+            if (usersData[index].id === (id)) {
                 usersData.splice(index, 1);
+            } else {
+                return false
             }
         }
     }
