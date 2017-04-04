@@ -58,6 +58,9 @@ function DeleteUser (id) {
 }
 
 function ShowUsers () {
+    if (usersData.length === 0) {
+        return "0 users";
+    }
     usersData.forEach(function (item, i, usersData) {
         console.log(usersData[i].id, usersData[i].name, usersData[i].email);
     });
@@ -65,7 +68,7 @@ function ShowUsers () {
 
 /*
 AddUser("Crown", "empire@phc.cor");
-AddUser("Beyond", "recognition@all.cor");
+AddUser("Beyond", "therecognition@all.cor");
 AddUser("Alexandria", "askingalexandria@ms.cor");
 AddUser("Memphis', 'memphismay@fire.cor");
 AddUser("Attila", "christopher@fronzak.cor");

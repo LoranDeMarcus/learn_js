@@ -82,33 +82,29 @@ describe("TestingDeleteUserWithoutArguments", function () {
 
 describe("TestingAddUserWithArguments", function () {
 
-    it("CallWithValidArgumentsMustReturnTrue", function () {
+    it("CheckingForAddedUserMustReturnTrue", function () {
         usersData.push({
             id: 100,
             name: "testName",
             email: "testEmail"
         });
-
-    });
-
-    it("CheckingForAddedUserMustReturnTrue", function () {
         AddUser("test1", "test@rm.ru");
         assert.equal(usersData[1].id, 101);
     })
 
 });
 
-describe("TestingUpdateUserForRe-Update", function () {
+describe("TestingUpdateUserForReUpdate", function () {
 
     it("CallUpdateAgainMustReturnFalse", function () {
         usersData.push({
             id: 102,
             name: "ReName",
-            email: "ReEmail@tem.com"
+            email: "reemail@item.com"
         });
-        let prevArray = usersData[102];
-        UpdateUser(102, "ReNameDone", "ReEmailDone@tem.com");
-        assert.equal(prevArray, usersData[102]);
+        const prevArray = usersData[2].email;
+        UpdateUser(102, "ReNameDone", "reemaildone@item.com");
+        assert.notEqual(prevArray, usersData[2].email);
     });
 
 });
