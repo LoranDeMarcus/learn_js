@@ -1,8 +1,4 @@
-describe("TestingAddUser", function() {
-
-    it("CallWithRightArgumentsMustReturnTrue", function () {
-
-    });
+describe("TestingAddUserWithoutArguments", function() {
 
     it("CallWithoutArgumentsMustReturnFalse", function() {
         assert.equal(AddUser(), false);
@@ -21,7 +17,7 @@ describe("TestingAddUser", function() {
     });
 });
 
-describe("TestingUpdateUser", function () {
+describe("TestingUpdateUserWithoutArguments", function () {
 
     it("CallWithoutArgumentsMustReturnFalse", function () {
         assert.equal(UpdateUser(), false);
@@ -52,7 +48,7 @@ describe("TestingUpdateUser", function () {
     });
 });
 
-describe("TestingDeleteUser", function () {
+describe("TestingDeleteUserWithoutArguments", function () {
 
     it("CallWithoutArgumentsMustReturnFalse", function () {
         assert.equal(DeleteUser(), false);
@@ -82,4 +78,47 @@ describe("TestingDeleteUser", function () {
 
     });
 
+});
+
+describe("TestingAddUserWithArguments", function () {
+
+    it("CallWithValidArgumentsMustReturnTrue", function () {
+        usersData.push({
+            id: 100,
+            name: "testName",
+            email: "testEmail"
+        });
+
+    });
+
+    it("CheckingForAddedUserMustReturnTrue", function () {
+        AddUser("test1", "test@rm.ru");
+        assert.equal(usersData[1].id, 101);
+    })
+
+});
+
+describe("TestingUpdateUserForRe-Update", function () {
+
+    it("CallUpdateAgainMustReturnFalse", function () {
+        usersData.push({
+            id: 102,
+            name: "ReName",
+            email: "ReEmail@tem.com"
+        });
+        let prevArray = usersData[102];
+        UpdateUser(102, "ReNameDone", "ReEmailDone@tem.com");
+        assert.equal(prevArray, usersData[102]);
+    });
+
+});
+
+describe("TestingDeleteWithArguments", function () {
+    
+    it("CallDeleteAndCheckDeleted", function () {
+        const prevLength = usersData.length;
+        DeleteUser(101);
+        assert.equal(prevLength, usersData.length + 1);
+    })
+    
 })
